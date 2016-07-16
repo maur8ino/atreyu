@@ -15,3 +15,9 @@ erl_crash.dump
 
 # Also ignore archive artifacts (built via "mix archive.build").
 *.ez
+
+# Ignore leex and yecc .erl files
+src/*.erl
+
+# Ignore .beam files
+*.beam

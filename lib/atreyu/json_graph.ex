@@ -1,4 +1,8 @@
 defmodule Atreyu.JSONGraph do
+  @moduledoc """
+  Helper function to format a JSON Graph
+  """
+
   def ref(path, props), do: sentinel("ref", path, props)
   def atom(value, props), do: sentinel("atom", value, props)
   def undefined(), do: sentinel("atom")
