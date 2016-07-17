@@ -7,28 +7,30 @@
 Definitions.
 
 % Ignored tokens
-WhiteSpace          = [\x{0009}\x{000B}\x{000C}\x{0020}\x{00A0}]
-_LineTerminator     = \x{000A}\x{000D}\x{2028}\x{2029}
-LineTerminator      = [{_LineTerminator}]
-Ignored             = {WhiteSpace}|{LineTerminator}
+WhiteSpace          = [\s\t\n\r]
+Ignored             = {WhiteSpace}
 
 % Lexical tokens
-Identifier          = [A-Za-z_$][A-Za-z_$0-9]*
+RoutedToken         = (ranges|integers|keys):?{WhiteSpace}*[A-Za-z]*{WhiteSpace}*
 Index               = -?[0-9]+
+Identifier          = [A-Za-z_$][A-Za-z_$0-9]*
+QuotedIdentifier    = "[^"]+"|'[^']+'
 RangeSeparator      = \.\.|\.\.\.
 
 
 Rules.
 
-{Ignored}           : skip_token.
-{Index}             : {token, {index, TokenLine, list_to_integer(TokenChars)}}.
-{Identifier}        : {token, {identifier, TokenLine, list_to_binary(TokenChars)}}.
+{RoutedToken}       : {token, {routed_token, TokenLine, TokenChars}}.
+{Index}             : {token, {index, TokenLine, TokenChars}}.
+{Identifier}        : {token, {identifier, TokenLine, TokenChars}}.
+{QuotedIdentifier}  : {token, {quoted_identifier, TokenLine, TokenChars}}.
 {RangeSeparator}    : {token, {range_separator, TokenLine, TokenChars}}.
 \[                  : {token, {'[', TokenLine}}.
 \]                  : {token, {']', TokenLine}}.
+\{                  : {token, {'{', TokenLine}}.
+\}                  : {token, {'}', TokenLine}}.
 \.                  : {token, {'.', TokenLine}}.
 \,                  : {token, {',', TokenLine}}.
-\'                  : {token, {'\'', TokenLine}}.
-\"                  : {token, {'\"', TokenLine}}.
+{Ignored}+          : skip_token.
 
 Erlang code.
