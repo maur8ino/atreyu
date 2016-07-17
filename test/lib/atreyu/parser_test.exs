@@ -45,4 +45,8 @@ defmodule Atreyu.ParserTest do
   test "parses named routed token for the path" do
     assert {:ok, ["one", %{type: "ranges", named: true, name: "foo"}, "oneMore"]} = parse("one[{ranges:foo}].oneMore")
   end
+
+  test "parses named (with space around) routed token for the path" do
+    assert {:ok, ["one", %{type: "ranges", named: true, name: "foo"}, "oneMore"]} = parse("one[{ranges:\t\n\r foo \t\n\r}].oneMore")
+  end
 end

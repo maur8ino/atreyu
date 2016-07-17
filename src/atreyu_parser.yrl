@@ -35,6 +35,9 @@ QuotedIdentifierList -> quoted_identifier : [extract_token('$1')].
 
 Erlang code.
 
+first(Value) -> lists:nth(1, Value).
+trim(Value) -> re:replace(Value, "[\s\t\n\r]+", "", [global, {return, list}]).
+
 extract_token({_Token, _Line, Value}) -> Value.
 extract_integer_token({_Token, _Line, Value}) -> list_to_integer(Value).
 extract_string_token({_Token, _Line, Value}) -> list_to_binary(Value).
@@ -44,10 +47,10 @@ extract_range({_Token1, _Line1, Value1}, {_Token2, _Line2, Value2}) ->
   #{from => list_to_integer(Value1), to => list_to_integer(Value2)}.
 extract_routed_token({_Token, _Line, Value}) ->
   case string:tokens(Value, ":") of
-    [T] -> #{type => list_to_binary(T),
+    [Type] -> #{type => list_to_binary(Type),
              named => false,
              name => list_to_binary("")};
-    [T|N] -> #{type => list_to_binary(T),
+    [Type|Name] -> #{type => list_to_binary(Type),
                named => true,
-               name => list_to_binary(string:strip(lists:nth(1,N)))}
+               name => list_to_binary(trim(first(Name)))}
   end.
