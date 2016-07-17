@@ -1,6 +1,10 @@
 # Atreyu
 
-**TODO: Add description**
+Atreyu is the server side implementation in Elixir of Netflix's Falcor
+[http://netflix.github.io/falcor/](http://http://netflix.github.io/falcor/).
+
+Atreyu is heavily inspired by Absinthe, the GraphQL client for Elixir
+[https://github.com/absinthe-graphql/absinthe](https://github.com/absinthe-graphql/absinthe).
 
 ## Installation
 
@@ -21,4 +25,3 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
       [applications: [:atreyu]]
     end
     ```
-
