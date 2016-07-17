@@ -27,7 +27,6 @@ defmodule Atreyu.ParserTest do
     assert {:ok, ["one", [%{from: 0, to: 1}, %{from: 3, to: 4}], "oneMore"]} = parse("one[0..1,3...4].oneMore")
   end
 
-  @tag :pending
   test "parses a string with a set of tokens" do
     assert {:ok, ["one", ["test", "test2"], "oneMore"]} = parse("one[\"test\", 'test2'].oneMore")
   end
@@ -48,5 +47,9 @@ defmodule Atreyu.ParserTest do
 
   test "parses named (with space around) routed token for the path" do
     assert {:ok, ["one", %{type: "ranges", named: true, name: "foo"}, "oneMore"]} = parse("one[{ranges:\t\n\r foo \t\n\r}].oneMore")
+  end
+
+  test "gives error on a bad path" do
+    assert {:error, _} = parse("one[{ranges:f o o}].oneMore")
   end
 end
