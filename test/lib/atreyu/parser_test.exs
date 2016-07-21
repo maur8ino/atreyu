@@ -28,7 +28,7 @@ defmodule Atreyu.ParserTest do
   end
 
   test "parses a string with a set of tokens" do
-    assert {:ok, ["one", ["test", "test2"], "oneMore"]} = parse("one[\"test\", 'test2'].oneMore")
+    assert {:ok, ["one", ["test", "test2"], "oneMore"]} = parse(~s(one["test", 'test2'].oneMore))
   end
 
   test "parses paths with newlines and whitespace between indexer keys" do
