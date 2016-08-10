@@ -28,7 +28,7 @@ defmodule Atreyu.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:credo, "~> 0.4.5", only: [:dev]}
+      {:credo, "~> 0.4.8", only: [:dev, :test]}
     ]
   end
 end
